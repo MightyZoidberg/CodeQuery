@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <ServerGarbageCollection>true</ServerGarbageCollection>
+    <AssemblyName>CodeQuery</AssemblyName>
+    <RootNamespace>CodeQuery</RootNamespace>
+    <!-- 独立小工具，NuGet 包锁定由 dotnet add package 写入 -->
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Build.Locator" Version="1.11.2" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="5.9.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Workspaces.MSBuild" Version="5.9.0" />
+    <!-- Locator 要求：MSBuild 程序集由运行时目录提供，NuGet 副本排除掉 -->
+    <PackageReference Include="Microsoft.Build.Framework" Version="17.11.48" ExcludeAssets="runtime" PrivateAssets="all" />
+  </ItemGroup>
+
+  <!-- Manager\ 是独立的 WinForms 安装/管理器子项目，不得混入本控制台项目的默认源码 glob -->
+  <ItemGroup>
+    <Compile Remove="Manager\**" />
+  </ItemGroup>
+
+</Project>

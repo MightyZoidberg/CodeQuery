@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <!-- WPF（非 WinForms）：.NET 10 的 IFileDialog 包装（WinForms FolderBrowserDialog / WPF OpenFolderDialog
+         均是）在本机 Win11 24H2（26100.9444）上打开即 fail-fast 崩溃（ntdll 0xc0000409，2026-10-10
+         最小复现实测：net8 正常、net10 WinForms/WPF 双崩，与业务代码无关）。
+         目录选择改由 FolderPicker 借道 PowerShell 5.1 子进程（.NET Framework 4.8 独立运行时，实测正常），
+         UI 框架本身（窗口/控件）不受影响。 -->
+    <UseWPF>true</UseWPF>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>CodeQueryManager</AssemblyName>
+    <RootNamespace>CodeQueryManager</RootNamespace>
+    <!-- 管理器不含 MSBuild BuildHost，可以安全单文件发布；self-contained 使其不依赖目标机 .NET 运行时 -->
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- build-installer.ps1 先生成 zip 再构建；条件引入使无 zip 时仍可编译（selftest 会报 payload 缺失） -->
+    <EmbeddedResource Include="CodeQueryPayload.zip" LogicalName="Payload.zip" Condition="Exists('CodeQueryPayload.zip')" />
+  </ItemGroup>
+
+</Project>

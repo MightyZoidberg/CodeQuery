@@ -1,0 +1,19 @@
+# ---- 构建产物（脚本能随时重建）----
+bin/
+obj/
+publish/
+dist/
+Manager/CodeQueryPayload.zip
+
+# ---- 机器状态：每台机器自己的多项目清单（模板见 default-sln.txt.example）----
+default-sln.txt
+
+# ---- 探针/自检临时输出（README 排障命令会产生）----
+probe_out.txt
+out.txt
+err.txt
+
+# ---- IDE ----
+.vs/
+.idea/
+*.user

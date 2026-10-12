@@ -1,0 +1,13 @@
+# CodeQuery 多项目清单 —— 模板。
+# 用法：复制本文件为同目录的 default-sln.txt，把下面两行换成你本机的 .sln 绝对路径。
+#
+# 放置位置（v1.5.2 起查找顺序）：exe 同目录（publish\default-sln.txt）→ exe 上级目录
+# （default-sln.txt）。建议放上级目录（安装根），手工清空 publish\ 时不会丢失。
+#
+# 语义：每行一个 .sln 绝对路径；空行与不存在的路径自动忽略。
+#   单行 → 启动即自动加载；
+#   多行 → 不预载，首个查询须带 solution=<路径或文件名子串> 选择（会话内记住，漏带时返回清单引导）。
+#
+# default-sln.txt 是各机器自己的状态：不入 git（.gitignore 已忽略）、不进安装 payload。
+C:\Projects\MyGame\MyGame.sln
+C:\Projects\OtherGame\OtherGame.sln
